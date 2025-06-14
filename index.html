@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wish Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #ffb347;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #f8e1f4);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+            border: 2px solid rgba(255, 107, 157, 0.3);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px) rotateX(20deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Pacifico', cursive;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            background-color: #fff9f9;
+        }
+        
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+            outline: none;
+            transform: translateY(-2px);
+        }
+        
+        .file-upload {
+            position: relative;
+            margin: 25px 0;
+        }
+        
+        .file-upload-label {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-upload-label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+        }
+        
+        .file-upload-label:active {
+            transform: translateY(1px);
+        }
+        
+        .file-upload-label::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .file-upload-label:hover::after {
+            left: 100%;
+        }
+        
+        #file-name {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        #photo-upload {
+            display: none;
+        }
+        
+        button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        .floating {
+            position: absolute;
+            animation: floating 3s ease-in-out infinite;
+            font-size: 28px;
+            opacity: 0.8;
+            z-index: -1;
+            filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1));
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .floating:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; color: #ff6b9d; }
+        .floating:nth-child(2) { top: 20%; right: 8%; animation-delay: 0.5s; color: #ffb347; }
+        .floating:nth-child(3) { bottom: 15%; left: 8%; animation-delay: 1s; color: #6bd5ff; }
+        .floating:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; color: #a18aff; }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating">🎈</div>
+    <div class="floating">🎁</div>
+    <div class="floating">🎂</div>
+    <div class="floating">🎊</div>
+    
+    <div class="container pulse">
+        <h1>Create Birthday Magic</h1>
+        
+        <form id="birthday-form">
+            <div class="input-group">
+                <label for="name-input">Birthday bash</label>
+                <input type="text" id="name-input" placeholder="Enter the birthday person's name" required>
+            </div>
+
+            
+     
+            
+            <div class="input-group">
+                <label>Add a special photo</label>
+                <div class="file-upload">
+                    <label for="photo-upload" class="file-upload-label">Choose Photo</label>
+                    <div id="file-name">No photo selected yet</div>
+                    <input type="file" id="photo-upload" accept="image/*" required>
+                </div>
+            </div>
+            
+            <button type="submit" id="generate-btn">
+                <span class="btn-text">Create Birthday Postcard </span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Show selected filename
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const fileName = document.getElementById('file-name');
+            fileName.textContent = file ? `Selected: ${file.name}` : 'No photo selected yet';
+            fileName.style.color = file ? '#4CAF50' : '#666';
+        });
+        
+        // Handle form submission with animation
+        document.getElementById('birthday-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name-input').value.trim();
+            const photoFile = document.getElementById('photo-upload').files[0];
+            const button = document.getElementById('generate-btn');
+            
+            if (!name || !photoFile) {
+                // Shake animation for validation
+                const container = document.querySelector('.container');
+                container.style.animation = 'none';
+                setTimeout(() => {
+                    container.style.animation = 'shake 0.5s';
+                }, 10);
+                
+                setTimeout(() => {
+                    container.style.animation = '';
+                }, 600);
+                
+                // Create shake keyframes dynamically
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                        20%, 40%, 60%, 80% { transform: translateX(5px); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                alert('Please fill in all fields to create your birthday card!');
+                return;
+            }
+            
+            // Button loading animation
+            button.disabled = true;
+            button.querySelector('.btn-text').textContent = 'Creating...';
+            
+            // Store data in localStorage to pass to the next page
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                localStorage.setItem('birthdayData', JSON.stringify({
+                    name: name,
+                    photo: event.target.result
+                }));
+                
+                // Transition animation before redirect
+                document.querySelector('.container').style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    window.location.href = 'postcard.html';
+                }, 500);
+            };
+            
+            // Create fadeOut keyframes dynamically
+            const fadeStyle = document.createElement('style');
+            fadeStyle.textContent = `
+                @keyframes fadeOut {
+                    to { opacity: 0; transform: translateY(30px) scale(0.95); }
+                }
+            `;
+            document.head.appendChild(fadeStyle);
+            
+            reader.readAsDataURL(photoFile);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+       <!-- Add this in the head -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+   <style>
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #ffb347;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .postcard {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            min-height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: cardAppear 1s ease-out;
+            border: 15px solid white;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        @keyframes cardAppear {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) rotateY(60deg) rotateX(30deg);
+                box-shadow: 0 0 0 rgba(0,0,0,0);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) rotateY(10) rotateX(10);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        .postcard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M30,30 Q50,10 70,30 T90,50 Q70,70 50,90 T10,50 Q30,30 50,10 T90,30" fill="none" stroke="%23ffb6c1" stroke-width="1" opacity="0.3"/></svg>');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .photo-frame {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: photoAppear 1s ease-out 0.5s both;
+            border: 8px solid white;
+            transform: translateZ(20px);
+        }
+        
+        @keyframes photoAppear {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.9) rotateZ(-5deg);
+                box-shadow: 0 0 0 rgba(0,0,0,0);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1) rotateZ(0);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+        }
+        
+        #postcard-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s;
+        }
+        
+        .photo-frame:hover #postcard-photo {
+            transform: scale(1.05);
+        }
+        
+        .name-display {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.1rem;
+            text-align: center;
+            margin: 20px 0;
+            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3,#ef07a2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 3s linear infinite, float 3s ease-in-out infinite;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+            transform: translateZ(30px);
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateZ(30px); }
+            50% { transform: translateY(-15px) translateZ(30px); }
+        }
+        
+        .message {
+            font-size: 1.3rem;
+            text-align: center;
+            color: #555;
+            margin: 30px 0;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            transform: translateZ(20px);
+            font-family: 'Pacifico', cursive;
+        }
+        
+        .decoration {
+            position: absolute;
+            font-size: 28px;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.8;
+            z-index: 0;
+            filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1));
+        }
+        
+        .decoration:nth-child(1) { top: 20px; left: 20px; animation-delay: 0s; color: var(--primary); }
+        .decoration:nth-child(2) { top: 20px; right: 20px; animation-delay: 0.5s; color: var(--secondary); }
+        .decoration:nth-child(3) { bottom: 20px; left: 20px; animation-delay: 1s; color: #6bd5ff; }
+        .decoration:nth-child(4) { bottom: 20px; right: 20px; animation-delay: 1.5s; color: #a18aff; }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            opacity: 0.7;
+            animation: confettiFall 5s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes confettiFall {
+            0% { 
+                transform: translateY(-100px) rotate(0deg) translateZ(0); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100vh) rotate(360deg) translateZ(0);
+                opacity: 0;
+            }
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateZ(20px);
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-3px) translateZ(20px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+        
+        .btn-back:active {
+            transform: translateY(1px) translateZ(20px);
+        }
+        
+        .btn-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        
+        .btn-back:hover::before {
+            left: 100%;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        @media (max-width: 600px) {
+            .name-display {
+                font-size: 2.5rem;
+            }
+            
+            .message {
+                font-size: 1.1rem;
+            }
+            
+            .photo-frame {
+                height: 250px;
+            }
+        }
+    </style>
+
+
+
+</head>
+<body>
+    <div id="confetti-container"></div>
+    
+    <div class="postcard">
+        <div class="decoration">🎈</div>
+        <div class="decoration">🎁</div>
+        <div class="decoration">🎀</div>
+        <div class="decoration">🎊</div>
+        
+        <h1 class="name-display" id="birthday-name"></h1>
+        
+        <div class="photo-frame">
+            <img id="postcard-photo" alt="Birthday Photo">
+        </div>
+        
+        <div class="message">
+            Wishing you a day filled with happiness,<br>
+            a year filled with joy,<br>
+            and a life filled with love 💓!
+        </div>
+        
+        <div class="text-center">
+            <a href="index.html" class="btn-back">Create Another Card</a>
+        </div>
+    </div>
+
+    <script>
+        // Load data from localStorage with animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const birthdayData = JSON.parse(localStorage.getItem('birthdayData'));
+            
+            if (birthdayData) {
+                // Set the name with typing animation
+                const nameElement = document.getElementById('birthday-name');
+                const name = birthdayData.name;
+                let i = 0;
+                
+                function typeWriter() {
+                    if (i < name.length) {
+                        nameElement.textContent += name.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    } else {
+                        // After name appears, show confetti
+                        createConfetti();
+                    }
+                }
+                
+                // Start typing animation after a short delay
+                setTimeout(() => {
+                    nameElement.textContent = '';
+                    typeWriter();
+                }, 500);
+                
+                // Set the photo
+                document.getElementById('postcard-photo').src = birthdayData.photo;
+            } else {
+                // If no data, redirect back to form with animation
+                document.querySelector('.postcard').style.animation = 'cardDisappear 0.5s forwards';
+                
+                // Create cardDisappear keyframes dynamically
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes cardDisappear {
+                        to { 
+                            opacity: 0; 
+                            transform: scale(0.8) rotateY(-30deg);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 500);
+            }
+        });
+        
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = [
+                '#ff0000', '#ff7f00', '#ffff00', '#00ff00', 
+                '#0000ff', '#4b0082', '#9400d3', '#ff1493',
+                '#00bfff', '#7cfc00', '#ffd700', '#ff69b4'
+            ];
+            const shapes = ['■', '▲','✿⁠', '●', '♥', '★', '♦','(⁠◕⁠ᴗ⁠◕⁠✿⁠)'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Randomly decide if it should be a color block or shape
+                if (Math.random() > 0.5) {
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                } else {
+                    confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                    confetti.style.lineHeight = '12px';
+                    confetti.style.textAlign = 'center';
+                }
+                
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.width = (Math.random() * 10 + 8) + 'px';
+                confetti.style.height = (Math.random() * 10 + 8) + 'px';
+                confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                confetti.style.animationDelay = (Math.random() * 2) + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                
+                container.appendChild(confetti);
+            }
+        }
+   </script>       
+</body>
+</html>
